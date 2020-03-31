@@ -3,6 +3,9 @@ package project2.ver05;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+import game.PuzzleGame;
+
+
 public class Account implements MenuChoice{
 
 
@@ -17,6 +20,7 @@ public class Account implements MenuChoice{
 			System.out.println("3. 출금");
 			System.out.println("4. 전체계좌정보출력");
 			System.out.println("5. 프로그램 종료");
+			System.out.println("6. 퍼즐게임 시작!");
 			System.out.print("선택: ");
 			selectNum = scan.nextInt();
 			scan.nextLine();
@@ -37,6 +41,9 @@ public class Account implements MenuChoice{
 			case EXIT:
 				System.out.println("프로그램을 종료합니다.");
 				return;
+			case 6:
+				PuzzleGame game =new PuzzleGame();
+				game.startGame();
 			}
 		} 
 	}
