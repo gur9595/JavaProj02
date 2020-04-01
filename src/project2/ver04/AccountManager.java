@@ -20,7 +20,7 @@ public class AccountManager implements MenuChoice, CustomSpecialRate{
 		readAccount();
 		while(true) {
 			try {
-				System.out.println("1. 계좌계설");
+				System.out.println("1. 계좌개설");
 				System.out.println("2. 입금");
 				System.out.println("3. 출금");
 				System.out.println("4. 전체계좌정보출력");
@@ -60,7 +60,7 @@ public class AccountManager implements MenuChoice, CustomSpecialRate{
 	}
 
 	// 계좌개설을 위한 함수
-	public void makeAccount() {
+	public void makeAccount() throws MenuSelectException {
 		int selectNum;
 		String accNum;
 		String name;
@@ -200,16 +200,15 @@ public class AccountManager implements MenuChoice, CustomSpecialRate{
 					}else if(check.equals(check)) {
 						return;
 					}
+				}else if(withdraw_mon%1000!=0) {
+					System.out.println("출금은 1000원 단위로만 출금하세요");
+					return;
 				}else {
-
 					account.money=account.money-withdraw_mon;
 					System.out.println("출금이 완료되었습니다.");						
 				}
 				
-				if(withdraw_mon%1000!=0) {
-					System.out.println("출금은 1000원 단위로만 출금하세요");
-					return;
-				}
+
 			}
 
 
@@ -228,7 +227,7 @@ public class AccountManager implements MenuChoice, CustomSpecialRate{
 	}
 
 	//계좌번호 중복체크
-	public void checking(String iname) {
+	public void checking(String iname) throws MenuSelectException {
 		int num = 0;
 		Scanner scan =new Scanner(System.in);
 		Iterator<Account> itr= accSet.iterator();
@@ -241,9 +240,9 @@ public class AccountManager implements MenuChoice, CustomSpecialRate{
 				scan.nextLine();
 				if(num==1) {
 					itr.remove();
-					System.out.println("덮쓰 완료");
+					System.out.println("덮쓰");
 				}else if(num==2) {
-					makeAccount();
+					showMenu();
 				}
 			}
 		}
@@ -252,7 +251,7 @@ public class AccountManager implements MenuChoice, CustomSpecialRate{
 	public void saveAccount() {
 		try {
 			ObjectOutputStream out = new ObjectOutputStream(
-					new FileOutputStream("src/project2/ver04/Account.obj"));
+					new FileOutputStream("src/project2/ver04/Account1.obj"));
 			Iterator<Account> itr = accSet.iterator();
 			while (itr.hasNext()) {
 				Account account = itr.next();
@@ -268,7 +267,7 @@ public class AccountManager implements MenuChoice, CustomSpecialRate{
 	public void readAccount() {
 		try {
 			ObjectInputStream in =new ObjectInputStream(
-					new FileInputStream("src/project2/ver04/Account.obj"));
+					new FileInputStream("src/project2/ver04/Account1.obj"));
 			while (true) {
 				Account account =(Account)in.readObject();
 				if(account == null) break;

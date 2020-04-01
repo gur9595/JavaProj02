@@ -30,7 +30,7 @@ public class PuzzleGame {
 		System.out.println("---------------------------------------");
 		// 셔플
 		int aa=1;
-		while(aa<20) {
+		while(aa<10) {
 			try {
 				int randNum=(int)(Math.random()*4);
 				if(randNum==0) {

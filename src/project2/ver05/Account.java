@@ -74,9 +74,8 @@ public class Account implements MenuChoice{
 			connectImpl.psmt.setString(1, accNum);
 			connectImpl.psmt.setString(2, name);
 			connectImpl.psmt.setInt(3, money);
-
-			int affected= connectImpl.psmt.executeUpdate();
-			System.out.println(affected + "행이 입력되었습니다.");
+			connectImpl.psmt.executeUpdate();
+			
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -112,9 +111,7 @@ public class Account implements MenuChoice{
 			connectImpl.psmt.setString(2, search_accNum);
 
 			System.out.println("입금이 완료되었습니다.");
-
-			int affected= connectImpl.psmt.executeUpdate();
-			System.out.println(affected + "행이 입력되었습니다.");
+			connectImpl.psmt.executeUpdate();
 
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -145,10 +142,8 @@ public class Account implements MenuChoice{
 			connectImpl.psmt.setInt(1, withdraw_mon);
 			connectImpl.psmt.setString(2,search_accNum);
 
+			connectImpl.psmt.executeUpdate();
 			System.out.println("출금이 완료되었습니다.");
-
-			int affected= connectImpl.psmt.executeUpdate();
-			System.out.println(affected + "행이 입력되었습니다.");
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
