@@ -116,7 +116,8 @@ public class AccountManager implements MenuChoice, CustomSpecialRate{
 			System.out.println("신용등급: ");
 			credit_rating = scan.nextLine();
 
-			HighCreditAccount account =new HighCreditAccount(accNum, name, money,interest,credit_rating);
+			HighCreditAccount account =
+					new HighCreditAccount(accNum, name, money,interest,credit_rating);
 			accSet.add(account);
 		}
 	}
@@ -154,18 +155,12 @@ public class AccountManager implements MenuChoice, CustomSpecialRate{
 			while (itr.hasNext()) {
 				Account account = itr.next();
 				if(search_accNum.equals(account.accNum)) {
-					if(depositMoney_ex(deposit_mon,check)==true) {
-
+					if(depositMoney_ex(deposit_mon,check)==check) {
 						account.money=account.interest_rate(deposit_mon);
 						System.out.println("입금이 완료되었습니다.");
-
 					}
-				}else if(depositMoney_ex(deposit_mon,check)==false) {
-					return;
 				}
 			}
-
-
 		} catch (InputMismatchException e) {
 			System.out.println("문자를 입려할수없습니다");
 		}
@@ -194,35 +189,31 @@ public class AccountManager implements MenuChoice, CustomSpecialRate{
 			if(withdraw_mon<0) {
 				System.out.println("음수는 안됩니다.");
 				return;
-			}else {
+			}else if(search_accNum.equals(account.accNum)){
 
-				if(search_accNum.equals(account.accNum)) {
-
-					if(account.money<withdraw_mon) {
-						System.out.println("잔고가 부족합니다. 금액전체를 출금할까요?(Yes / No)");
-						check = scan.nextLine();
-						if(check.equals("Yes")) {
-							account.money=0;
-							System.out.println("전체출금완료");
-						}else if(check.equals(check)) {
-							return;
-						}
-					}
-
-					if(withdraw_mon%1000!=0) {
-						System.out.println("출금은 1000원 단위로만 출금하세요");
+				if(account.money<withdraw_mon) {
+					System.out.println("잔고가 부족합니다. 금액전체를 출금할까요?(Yes / No)");
+					check = scan.nextLine();
+					if(check.equals("Yes")) {
+						account.money=0;
+						System.out.println("전체출금완료");
+					}else if(check.equals(check)) {
 						return;
 					}
+				}else {
 
 					account.money=account.money-withdraw_mon;
 					System.out.println("출금이 완료되었습니다.");						
-
 				}
-
+				
+				if(withdraw_mon%1000!=0) {
+					System.out.println("출금은 1000원 단위로만 출금하세요");
+					return;
+				}
 			}
+
+
 		}
-
-
 	}
 
 	// 전체계좌정보출력
@@ -247,6 +238,7 @@ public class AccountManager implements MenuChoice, CustomSpecialRate{
 			if(iname.equals(account.name)) {
 				System.out.println("계좌 중복이야~ 1.덮쓰  2.돌아가기");
 				num= scan.nextInt();
+				scan.nextLine();
 				if(num==1) {
 					itr.remove();
 					System.out.println("덮쓰 완료");
@@ -254,7 +246,6 @@ public class AccountManager implements MenuChoice, CustomSpecialRate{
 					makeAccount();
 				}
 			}
-
 		}
 	}
 
@@ -284,7 +275,7 @@ public class AccountManager implements MenuChoice, CustomSpecialRate{
 				accSet.add(account);
 			}
 		} catch (Exception e) {
-			
+
 		}
 	}
 
