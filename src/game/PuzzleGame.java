@@ -99,7 +99,7 @@ public class PuzzleGame {
 					break;
 				case "d":
 					//findX();
-
+ 
 					xx=arr[xix][xjx];
 					arr[xix][xjx]=arr[xix][xjx-1];
 					arr[xix][xjx-1]=xx;
